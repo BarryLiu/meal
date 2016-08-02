@@ -1,0 +1,6 @@
+.icon-sprite{background-image: url(../images/icons.png);background-repeat: no-repeat;width:16px;height: 16px;display: inline-block;position: absolute;top:50%;margin-top:-8px;left:10px;}
+.icon-alarm{background-position: 0px -2px;}
+.icon-alarm{background-position: -21px -1px;}
+.icon-list{background-position: -41px -1px;}
+.icon-edit{background-position: -63px -1px;}
+.icon-delete{background-position: -83px -2px;}
