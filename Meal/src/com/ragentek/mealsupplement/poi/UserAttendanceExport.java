@@ -126,6 +126,9 @@ public class UserAttendanceExport extends BaseExcelExport {
             // 循环写入列数据
             for (int j = 0; j < columns.length; j++) {
                 Cell cell = row.createCell(j);
+                if(dto.getNumber().equals("100291")){
+                    System.out.println("dto:"+dto);
+                }
                 String result = getValue(dto, j);
                 try {
                     cell.setCellValue(Integer.valueOf(result));//   转换成数字类型的 如果不是则到catch中string
@@ -250,12 +253,13 @@ public class UserAttendanceExport extends BaseExcelExport {
         sql = "select * from t_user where stat = "+KaoqinDto.STATUS_NO_ATTENDANCE ; //得到不参与考勤
         List<TUser> noMealUsersList = DBUtils.query(sql,TUser.class);
         Map<String,TUser> noMealUserMap = new HashMap<String, TUser>();
-        for(int i=0 ; i<noMealUserMap.size();i++){
+        for(int i=0 ; i<noMealUsersList.size();i++){                      //进去添加不参与考勤的人
             TUser noMealUser = noMealUsersList.get(i);
             noMealUserMap.put(noMealUser.getNumber(),noMealUser);
         }
        //强制不参与考勤
         noMealUserMap.put("100040",null);   //黄华云 师傅，不计算
+        noMealUserMap.put("100041",null);
         noMealUserMap.put("100155",null);   //不计算
         for(int i=0 ; i<allData.size();i++){
             if (noMealUserMap.containsKey(allData.get(i).getNumber())){

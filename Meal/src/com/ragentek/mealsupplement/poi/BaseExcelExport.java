@@ -43,7 +43,7 @@ public abstract class BaseExcelExport<T> {
 		workbook.write(os);
 		os.flush();
 		os.close();
-		System.out.println("写入 。，。。 os"+os);
+		//System.out.println("写入 。，。。 os"+os);
 	}
 	
 	protected abstract void dataToExcel(Workbook workbook, List<T> data);

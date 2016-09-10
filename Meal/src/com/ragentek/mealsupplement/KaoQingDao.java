@@ -427,7 +427,8 @@ public class KaoQingDao {
 
                 "\t ) as 'nianjia', \n" +
                 "\t (\n" +
-                "\t\tselect sum(total_hours) from t_leave where number = f.number and  bill_name  like '%其他假期%'   -- 可能有问题 \n" +
+                "\t\tselect sum(total_hours) from t_leave where number = f.number and  bill_name  like '%其他假期%' \n" +
+                "\t\t and  cast('"+startDay+"' as datetime) <=  cast(day_str as datetime)  and  cast(day_str as datetime) <= cast('"+endDay+"' as datetime)\n" +
                 "\t ) as 'qitajia',\n" +
                 "\t sum(workovertime) as 'jiaban',\n" +
                 "\t (\n" +

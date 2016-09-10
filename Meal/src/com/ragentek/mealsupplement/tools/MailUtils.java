@@ -219,7 +219,10 @@ public class MailUtils {
 				if(TextUtil.isNullOrEmpty(password)) {
 					password = pwd;
 				}
-				System.out.println("mail connection: host="+host+",user="+user+",password="+password);
+//				user ="yingjing.liu@wheatek.com";
+//				password = "Wheatek#";
+
+				System.out.println("mail connection: host="+host+",user="+user+",password="+password+" tosize:"+to.size());
 				transport.connect(host, user, password);
 			}
 
@@ -275,7 +278,7 @@ public class MailUtils {
 
 	public static void main(String[] args) {
 		 MailUtils mailUtil = new MailUtils();
-		 mailUtil.setAddress("subject", "654652424@qq.com");
+		 mailUtil.setAddress("subject", "1187597904@qq.com");
 		 mailUtil.send("hahha", "", "");
 		/*try {
 			send_email();

@@ -196,7 +196,7 @@
 
                         } else {
                             Tip.tip("修改失败");
-                        }*/
+                        }
                     }
                 });
             $.ligerDialog.alert('添加成功', "提示","success");

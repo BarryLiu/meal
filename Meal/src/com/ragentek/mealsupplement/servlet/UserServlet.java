@@ -105,6 +105,7 @@ public class UserServlet extends BaseServlet {
 
         String todo = req.getParameter("todo");
         if(todo == null){                       //跳到添加页面
+//            Map<String,TUser> users = LDAPControl.getInstance().getAllLdapUserNoNumber();
             Map<String,TUser> users = LDAPControl.getInstance().getAllLdapUserNoNumber();
             List<TUser> sysUser=userService.getAllUsers();
             for(TUser u: sysUser){  //  如果没有的用户在数据库中已经存在就不需要     界面下拉框显示了

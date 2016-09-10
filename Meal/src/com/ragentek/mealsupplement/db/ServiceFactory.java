@@ -1,10 +1,22 @@
 package com.ragentek.mealsupplement.db;
 
-import java.lang.reflect.Field;
-import java.util.HashMap;
-import java.util.Map;
-
+import com.ragentek.mealsupplement.db.bean.TUser;
+import com.ragentek.mealsupplement.json.User;
+import com.ragentek.mealsupplement.service.UserService;
+import com.ragentek.mealsupplement.serviceImpl.UserServiceImpl;
+import com.ragentek.mealsupplement.servlet.UserServlet;
+import com.ragentek.mealsupplement.tools.Util;
+import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.log4j.Logger;
+
+import java.beans.PropertyDescriptor;
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by zixiao.zhang on 2016/3/10.

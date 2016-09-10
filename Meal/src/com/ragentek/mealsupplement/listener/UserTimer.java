@@ -135,10 +135,9 @@ public class UserTimer {
             if(!exist) { //不存在更新
                 // yingjing.liu  add  start 20160629  对于 正常考勤 的员工  ldap系统中没有录入其number 也会变为离职，：
                 // 这里对其进行一次过滤 ：对于 标为离职前从 LDAP 系统中根据登录账号判断其 用户存不存在，如果不存在这条数据 表示离职 、存在代表刚进来还没有对其录入number
-                if(LDAPControl.getInstance().getLadpUser(tUser.getLoginCount())!=null) {  //ldap系统中有他
+                if(LDAPControl.getInstance().getLadpUser(tUser.getLoginCount())!=null||tUser.getLeaveDate()!=null) {  //ldap系统中有他
                     continue;
                 }
-
                 tUser.setLeaveDate(DateTools.formatDateToString(new Date(),DateTools.FORSTR_DATE));  //标为离职时间
                 tUser.setStat(User.STATUS_LEAVE);
                 DBUtils.update(tUser);

@@ -451,7 +451,7 @@
                 <td style="align:right">选择一级部门:</td>
                 <td>
                     <select id="firstDept" name="parentId" onchange="firstChange()">
-                        <option value="-1" >请选择部门</option>
+                        <option value="" >请选择部门</option>
                         <c:forEach items="${depts}" var="dept">
                             <option value="${dept.id}" >${dept.name}</option>
                         </c:forEach>

@@ -11,6 +11,7 @@ import com.ragentek.mealsupplement.ldap.LDAPControl;
 import com.ragentek.mealsupplement.listener.UserTimer;
 import com.ragentek.mealsupplement.poi.UserAttendanceExport;
 import com.ragentek.mealsupplement.service.BillTypeService;
+import com.ragentek.mealsupplement.service.FeeService;
 import com.ragentek.mealsupplement.service.GroupService;
 import com.ragentek.mealsupplement.service.UserService;
 import com.ragentek.mealsupplement.tools.*;
@@ -150,7 +151,20 @@ public class Dwr {
     public String notifyAttendance(String startDay, String endDay) {
         int res = 0;
         try {
-            res = LeaveUtil.notifyAttendance(startDay, endDay);
+//            res = LeaveUtil.notifyAttendance(startDay, endDay);
+
+            //yingjing.liu 20160823 start  邮件发送 接收人有上限 // 这里分批次发送
+            LeaveUtil.cishu = 1;
+            FeeService feeService = ServiceFactory.getService(ServiceConfig.SERVICE_FEE);
+            List<String> tos = feeService.getUnhandleUserEmails(startDay, endDay);
+            int num = (tos.size()/LeaveUtil.NUM_OF_ONE)+1;
+            System.out.println("发送邮件数量(份)： "+num);
+            for(int i =0  ; i<num;i++ ){
+                LeaveUtil.cishu = i+1;
+                res = LeaveUtil.notifyAttendance(startDay, endDay);
+            }
+            //yingjing.liu 20160823 end
+
         } catch (Exception e) {
             e.printStackTrace();
             res = LeaveUtil.NA_EXCEPTION;

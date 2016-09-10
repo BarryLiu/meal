@@ -55,6 +55,7 @@ public class LeaveUtil {
 
     public static final String DEF_ABSENCE_TIME = "06:59:59"; //为旷工的员工自动加入一条t_fees,默认的开始和结束时间
 
+    public static  Integer  cishu =1;                  //  记录 批数  真正邮件一批150为最多 这里以140为最大. 记录发送的人
     /**
      *
      * @param number 工号
@@ -1036,6 +1037,8 @@ public class LeaveUtil {
     public static final int NA_NO_EMAIL = -2;
     public static final int NA_SEND_EMAIL_FAIL = -3;
     public static final int NA_EXCEPTION = -4;
+
+    public static final int NUM_OF_ONE = 100 ;// 一封邮件最多发给几个人 // 邮件发送有上限 最多150 
     public static int notifyAttendance(int month, String startDay, String endDay) throws IOException {
         int res = NA_SUCCESS;
         /*
@@ -1102,6 +1105,20 @@ public class LeaveUtil {
         FeeService feeService = ServiceFactory.getService(ServiceConfig.SERVICE_FEE);
         List<TFees> tFeesList = feeService.getUnhandleLeaves(startDay, endDay);
         List<String> tos = feeService.getUnhandleUserEmails(startDay, endDay);
+
+       //yingjing.liu 20160823 start  邮件发送 接收人有上限 // 这里分批次发送
+        int start = cishu*NUM_OF_ONE-NUM_OF_ONE;
+        int end = start + NUM_OF_ONE;
+        List<String> curr = new ArrayList<String>();
+        for(int i= 0 ; i< tos.size() ; i++){
+            if(start<i&& i<=end ){
+                curr.add(tos.get(i));
+            }
+        }
+        tos = curr;
+        //yingjing.liu 20160823 end
+
+        
         if(tFeesList.size() == 0) {
             res = NA_NO_DATA;
         } else if(tos.size() == 0) {
@@ -1162,6 +1179,10 @@ public class LeaveUtil {
             mailUtil.addAttachment(attachment);
 //            mailUtil.setAddress("考勤异常", "654652424@qq.com");
             mailUtil.setSubject("考勤异常");
+
+//            tos = new ArrayList<String>();
+//            tos.add("yingjing.liu@wheatek.com");  //只发给我
+
             mailUtil.setTos(tos);
             String cc = ConfigUtil.getProperty("leaveTip_cc");
             if(cc == null) cc="";

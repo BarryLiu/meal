@@ -279,10 +279,10 @@
             var sid = $("#secondDept").val();
             var id = $("#id").val();
 
-            if(fid==''){
+            /*if(fid==''){
                 $.ligerDialog.alert('请选择至少一个部门', '提示', 'warn');
                 return;
-            }
+            }*/
 
             var row = gridManager.getSelectedRow();
             var enterDay = $("#enterDay").val();
@@ -296,7 +296,6 @@
                 DWREngine.setAsync(true);
             }
             if(leaveDay!=row.leaveDay){
-                alert(leaveDay);
                 DWREngine.setAsync(false);
                 dwr.updateUserLeaveDay(id, leaveDay, function(data) {
                     //基本山都会成功
@@ -310,7 +309,7 @@
                 });
                 DWREngine.setAsync(true);
             }
-
+            addCookie();
             location.href = "user?op=update&userId="+id+"&firstId="+fid+"&sencondId="+sid;
         }
          function btnaddItemClick(){
@@ -423,7 +422,7 @@
                 <td style="align:right">一级部门:</td>
                 <td>
                     <select id="firstDept" name="parentId" onchange="firstChange()">
-                        <option value="-1" >请选择部门</option>
+                        <option value="" >请选择部门</option>
                         <c:forEach items="${depts}" var="dept">
                             <option value="${dept.id}" >${dept.name}</option>
                         </c:forEach>
